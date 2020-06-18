@@ -13,6 +13,7 @@
 		8D178720249B4ED40038432E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D17871E249B4ED40038432E /* Main.storyboard */; };
 		8D178722249B4ED50038432E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D178721249B4ED50038432E /* Assets.xcassets */; };
 		8D178725249B4ED50038432E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D178723249B4ED50038432E /* LaunchScreen.storyboard */; };
+		8DDFAC4B249BA74100285146 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDFAC4A249BA74100285146 /* ShareViewController.swift */; };
 		92E2FA226CFD4F8BA426AF33 /* Pods_GglBksThumb01.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D5F67ED7F2F4230088057D7 /* Pods_GglBksThumb01.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +27,7 @@
 		8D178721249B4ED50038432E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D178724249B4ED50038432E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D178726249B4ED50038432E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DDFAC4A249BA74100285146 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		90759837829F3C975BD7ACA7 /* Pods-GglBksThumb01.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GglBksThumb01.release.xcconfig"; path = "Target Support Files/Pods-GglBksThumb01/Pods-GglBksThumb01.release.xcconfig"; sourceTree = "<group>"; };
 		F7605EBC3B3F97421C321B73 /* Pods-GglBksThumb01.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GglBksThumb01.debug.xcconfig"; path = "Target Support Files/Pods-GglBksThumb01/Pods-GglBksThumb01.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -74,6 +76,7 @@
 				8D178718249B4ED40038432E /* AppDelegate.swift */,
 				8D17871A249B4ED40038432E /* SceneDelegate.swift */,
 				8D17871C249B4ED40038432E /* SearchViewController.swift */,
+				8DDFAC4A249BA74100285146 /* ShareViewController.swift */,
 				8D17871E249B4ED40038432E /* Main.storyboard */,
 				8D178721249B4ED50038432E /* Assets.xcassets */,
 				8D178723249B4ED50038432E /* LaunchScreen.storyboard */,
@@ -208,6 +211,7 @@
 			files = (
 				8D17871D249B4ED40038432E /* SearchViewController.swift in Sources */,
 				8D178719249B4ED40038432E /* AppDelegate.swift in Sources */,
+				8DDFAC4B249BA74100285146 /* ShareViewController.swift in Sources */,
 				8D17871B249B4ED40038432E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

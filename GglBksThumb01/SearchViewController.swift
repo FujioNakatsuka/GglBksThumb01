@@ -14,9 +14,12 @@ import Photos
 
 class SearchViewController: UIViewController {
     @IBOutlet weak var thumnailImageView: UIImageView!
-    
     @IBOutlet weak var SearchTextField: UITextField!
- 
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var authorsLabel: UILabel!
+    @IBOutlet weak var publishersLabel: UILabel!
+    @IBOutlet weak var publishedDate: UILabel!
+
     //Boketeでは  @IBOutlet weak var commentTextView: UITextView!が入りますが、今回はコメントはShareVCで入力します
     
     var count = 0
@@ -27,6 +30,8 @@ class SearchViewController: UIViewController {
         PHPhotoLibrary.requestAuthorization{
             (status) in
             
+            
+            //Caution for Fix:Switch covers known cases, but 'PHAuthorizationStatus' may have additional unknown values, possibly added in future versions.Handle unknown values using "@unknown default"
             switch(status){
                 case .authorized: break
                 case .denied: break
@@ -35,20 +40,20 @@ class SearchViewController: UIViewController {
                 
            }
        }
-        
-        getImages(keyword: "Franz + Marc")
+  
+        //部分一致による検索で、Field内の空白は不可。日本語を検索できないのはなぜ？検索エンジン自体の設定か？Leonardo Da Vinciで試すと実に面白しい
+        //FranzMarcで検索できるのは例外か？
+        SearchTextField.text = "FranzMarc"
+        getImages(keyword: "FranzMarc")
         
         
     }
 //    検索ワードの値を元に画像を引っ張ってくる
-//(~はhttp)~s://www.googleapis.com/books/v1/volumes?~~~&q=Marc+Franz
- //⭐️次の説明で正しいでしょうか？ 配列は辞書型"items"で、その下にid,selfLink,title,authors,publisher,publishedDate,imageLinks{"thumbnail":"~://books.google.com/books/content?id=pfMRAQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"などがある。
-    
-    
+
     func getImages(keyword:String){
         
         //API Key AIzaSyD7kgXX7s8FgC7RxNrRlvPSGqySdKIh8vQ
-    let url = "https://www.googleapis.com/books/v1/volumes?AIzaSyD7kgXX7s8FgC7RxNrRlvPSGqySdKIh8vQ&q=\(keyword)"
+    let url = "https://www.googleapis.com/books/v1/volumes?AIzaSyD7kgXX7s8FgC7RxNrRlvPSGqySdKIh8vQ&q=\(keyword)&maxResults=30"
         
    //Alamofireでhttpリクエスト、値が返るのでJSON解析してImageView.imageに貼る
         AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default).responseJSON{(responce) in
@@ -56,21 +61,37 @@ class SearchViewController: UIViewController {
                 
             case .success:
                 let json:JSON = JSON(responce.data as Any)
-                var imageString = json["items"][self.count]["volumeInfo"]["imageLinks"]["thumbnail"]
+//                print(json.debugDescription)
                 
-                //⭐️上記は見よう見真似で書きましたが、この書き方で良いでしょうか？itemsの下の第２階層はid,selfLink,volumeInfoなどがあり、volumeInfoの下の第3階層にtitle,authors,imageLinks、そしてimageLinksの下の第4階層にthumbnailがあって、本の表紙のurl（例えば"〜（〜はhttp）://books.google.com/books/content?id=pfMRAQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"）ただしpfMRAQAAQBAJはBoogleBooksが各書籍に割り当てたidです
+//                var imageString = から変更。理由は？
+                let imageString =
+                json["items"][self.count]["volumeInfo"]["imageLinks"]["thumbnail"].string
                 
-                if imageString == nil{
                               
-                              imageString = json["items"][0]["thumnail"].string
-                
-                self.thumnailImageView.sd_setImage(with: URL(string: imageString!), completed: nil)
-                //⭐️Cannot convert value of type 'JSON' to expected argument typeと怒られています！　そして'imageString'には、なぜselfが付くのか？クロージャーの中だからとは？？？？そして何よりもJSON自体を理解できていない。。。
-                }else{
-                    
-                    self.thumnailImageView.sd_setImage(with: URL(string: imageString!), completed: nil)
-                    
-                }
+                let title =
+                json["items"][self.count]["volumeInfo"]["title"].string
+
+                let authors =
+                json["items"][self.count]["volumeInfo"]["authors"][0].string
+
+                let publisher =
+                json["items"][self.count]["volumeInfo"]["publisher"].string
+
+                let publishedDate =
+                json["items"][self.count]["volumeInfo"]["publishedDate"].string
+
+                self.titleLabel.text = title
+                self.authorsLabel.text = authors
+                self.publishersLabel.text = publisher
+                self.publishedDate.text = publishedDate
+       
+//　　　　　　　　　thumbnailがない時のためのif文だったが、、、不要だった？
+//                if imageString == nil{
+//                imageString = json["items"][0]["thumnail"].string
+//                self.thumnailImageView.sd_setImage(with: URL(string: imageString!), completed: nil)
+//                }else{
+//                self.thumnailImageView.sd_setImage(with: URL(string: imageString!), completed: nil)
+//                }
                 
            self.thumnailImageView.sd_setImage(with: URL(string: imageString!), completed: nil)
                     
@@ -90,7 +111,7 @@ class SearchViewController: UIViewController {
         
         if SearchTextField.text == ""{
             
-           getImages(keyword: "Franz + Marc")
+           getImages(keyword: "FranzMarc")
             
         }
         else{

@@ -104,7 +104,11 @@
                     </view>
                     <connections>
                         <outlet property="SearchTextField" destination="soM-6e-bjZ" id="SAh-tb-890"/>
+                        <outlet property="authorsLabel" destination="Mju-kx-YjB" id="Jm2-lH-Tsl"/>
+                        <outlet property="publishedDate" destination="dTc-Cn-t5F" id="wuP-NC-DQT"/>
+                        <outlet property="publishersLabel" destination="K2H-tl-Sec" id="X44-Np-Ltt"/>
                         <outlet property="thumnailImageView" destination="Ypg-Ju-5oJ" id="Mez-W3-E68"/>
+                        <outlet property="titleLabel" destination="4rF-J0-OQj" id="rtc-Qz-Q6h"/>
                         <segue destination="TBE-PW-na7" kind="presentation" identifier="next" modalPresentationStyle="fullScreen" id="r8P-gP-Smp"/>
                     </connections>
                 </viewController>

@@ -66,10 +66,15 @@ class SearchViewController: UIViewController {
 //                print(json.debugDescription)
                 
 //                var imageString = から変更。理由は？
-                let imageString =
+                var imageString =
                 json["items"][self.count]["volumeInfo"]["imageLinks"]["thumbnail"].string
+         //　　　　　　　　　thumbnailがない時のためのif文だったが、、、どう書く？
+         //ないものはねだりません。代わりにJokerを入れま〜〜〜す😁
                 
-                              
+       if imageString?.isEmpty ?? true{
+        imageString = "http://books.google.com/books/content?id=-vg0DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        }
+
                 let title =
                 json["items"][self.count]["volumeInfo"]["title"].string
 
@@ -97,17 +102,9 @@ class SearchViewController: UIViewController {
                 self.authorsLabel.text = authors
                 self.publishersLabel.text = publisher
                 self.publishedDate.text = publishedDate
-       
-//　　　　　　　　　thumbnailがない時のためのif文だったが、、、どう書く？
-//                if imageString == nil{
-//                imageString = json["items"][0]["thumnail"].string
-//                self.thumnailImageView.sd_setImage(with: URL(string: imageString!), completed: nil)
-//                }else{
-//                self.thumnailImageView.sd_setImage(with: URL(string: imageString!), completed: nil)
-//                }
+                self.thumnailImageView.sd_setImage(with: URL(string: imageString!), completed: nil)
                 
-           self.thumnailImageView.sd_setImage(with: URL(string: imageString!), completed: nil)
-                    
+            
             case .failure(let error):
                 
                 print(error)
@@ -141,7 +138,7 @@ class SearchViewController: UIViewController {
         
         if SearchTextField.text == ""{
             
-           getImages(keyword: "Franz + Marc")
+           getImages(keyword: "FranzMarc")
             
         }
         else{

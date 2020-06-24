@@ -23,6 +23,8 @@ class SearchViewController: UIViewController {
     //Boketeでは  @IBOutlet weak var commentTextView: UITextView!が入りますが、今回はコメントはShareVCで入力します
     
     var count = 0
+    var i = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,9 +73,20 @@ class SearchViewController: UIViewController {
                 let title =
                 json["items"][self.count]["volumeInfo"]["title"].string
 
+//著者名は複数存在する場合があるので最初の著者名を取得。[0]がない場合、著者名は表示されない。なぜ？
                 let authors =
                 json["items"][self.count]["volumeInfo"]["authors"][0].string
 
+//                共著者名を並べたいのでfor文で切り分けを行う方法がまだわかっていない
+//                i = json["items"][self.count]["volumeInfo"]["authors"].count
+//                for q in 0...i{
+//                    self.authorsLabel = json["items"][self.count]["volumeinfo"]["autohrs"][q].string!
+//                    self.authors = self.authors + "," +self.authors
+//                    if self.authorsLabel.isEmty == true{
+//                        return
+//                    }
+//                }
+                
                 let publisher =
                 json["items"][self.count]["volumeInfo"]["publisher"].string
 
@@ -85,7 +98,7 @@ class SearchViewController: UIViewController {
                 self.publishersLabel.text = publisher
                 self.publishedDate.text = publishedDate
        
-//　　　　　　　　　thumbnailがない時のためのif文だったが、、、不要だった？
+//　　　　　　　　　thumbnailがない時のためのif文だったが、、、どう書く？
 //                if imageString == nil{
 //                imageString = json["items"][0]["thumnail"].string
 //                self.thumnailImageView.sd_setImage(with: URL(string: imageString!), completed: nil)
